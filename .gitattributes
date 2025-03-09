@@ -1,0 +1,12 @@
+# Ensure line endings are correct for different systems
+
+# For Unix-based systems (macOS, Linux) - force LF endings
+*.sh text eol=lf
+
+# For Windows - force CRLF endings
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Handle the wrapper script for Maven
+/mvnw text eol=lf
+/mvnw.cmd text eol=crlf
