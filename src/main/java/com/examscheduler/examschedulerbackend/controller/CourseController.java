@@ -21,7 +21,12 @@ public class CourseController {
         return new ArrayList<Course>(); // placeholder value
     }
 
+    @GetMapping("/allCourses")
     public List<String> getCourseInfo() {
         return service.parseCourseCSV();
     }
+
+
+
+
 }
