@@ -1,9 +1,12 @@
 package com.examscheduler.examschedulerbackend.controller;
 
 import com.examscheduler.examschedulerbackend.model.Course;
+import com.examscheduler.examschedulerbackend.service.CourseService;
 import com.examscheduler.examschedulerbackend.service.ExamService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,20 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
 @RestController
-@RequestMapping("courses")
+@RequiredArgsConstructor
+@RequestMapping("/courses")
 public class CourseController {
-    @Autowired
-    private ExamService service;
+    private final CourseService service;
 
-    @GetMapping
+    @GetMapping("/findAll")
     public List<Course> findAll() {
-        return new ArrayList<Course>(); // placeholder value
+        return new ArrayList<Course>(); // placeholder value. implement in the foreseeable future
     }
 
-    @GetMapping("/allCourses")
-    public List<String> getCourseInfo() {
-        return service.parseCourseCSV();
+    @PostMapping("/allCourses")
+    public void addCourses() {
+        System.out.println("assignment");
+        service.updateCoursesMonthly();
     }
+
 
 
 
