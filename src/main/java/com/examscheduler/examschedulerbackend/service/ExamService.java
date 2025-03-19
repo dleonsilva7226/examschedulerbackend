@@ -1,13 +1,19 @@
 package com.examscheduler.examschedulerbackend.service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class ExamService {
-    public List<String> parseCourseCSV() {
-        return new ArrayList<String>(); //implement next. will allow for exam schedule data to be shown on the table
-    }
 
+    private final CSVService csvService;
+
+    public void updateExamScheduleMonthly()  {
+        File examScheduleFile = new File("/Users/dan/repos/ColgateExamScheduler/exam_schedule.csv");
+        csvService.parseAndInsertCSV(examScheduleFile, false);
+    }
 
 }

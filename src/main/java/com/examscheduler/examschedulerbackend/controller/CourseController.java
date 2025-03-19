@@ -2,7 +2,6 @@ package com.examscheduler.examschedulerbackend.controller;
 
 import com.examscheduler.examschedulerbackend.model.Course;
 import com.examscheduler.examschedulerbackend.service.CourseService;
-import com.examscheduler.examschedulerbackend.service.ExamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

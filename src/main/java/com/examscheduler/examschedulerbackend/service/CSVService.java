@@ -5,6 +5,8 @@ import com.examscheduler.examschedulerbackend.repo.CourseRepo;
 import com.examscheduler.examschedulerbackend.repo.ScheduleRepo;
 import org.springframework.stereotype.Service;
 import java.io.*;
+import java.util.Arrays;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -38,7 +40,7 @@ public class CSVService {
                 newCourse.setSection(courseSection);
                 newCourse.setDays(courseDays);
                 newCourse.setTime(courseTime);
-                myCourseRepo.save(newCourse);
+                myCourseRepo.save(newCourse); //find a way to have it so that CSV Data is only added once
             }
         } else {
             System.out.println("Invalid input data array");
@@ -48,21 +50,21 @@ public class CSVService {
     //saves the exam schedule data to postgresql database
     public void saveScheduleData(String[] data) {
         Schedule newSchedule = new Schedule();
-        if (data != null && data.length >= 5) {
+        if (data != null && data.length >= 3) {
             String examDate = data[0];
             String examTime = data[1];
             String coursesWithExam = data[2];
-
+            System.out.println(Arrays.toString(data));
             if (examDate == null || examDate.isEmpty()
                     || examTime == null || examTime.isEmpty()
                     || coursesWithExam == null || coursesWithExam.isEmpty()
             ) {
                 System.out.println("Invalid piece of data");
             } else {
-                newSchedule.setCourseTime(examTime);
+                newSchedule.setExamTime(examTime);
                 newSchedule.setExamDate(examDate);
                 newSchedule.setCourseTime(coursesWithExam);
-                myScheduleRepo.save(newSchedule);
+                myScheduleRepo.save(newSchedule); //find a way to have it so that CSV Data is only added once
             }
         } else {
             System.out.println("Invalid input data array");
@@ -87,7 +89,6 @@ public class CSVService {
           String line;
           line = reader.readLine();
           while (line != null) {
-              System.out.println("LINE: " + line);
               String[] result = line.split(",");
               saveDataToDatabase(result, isCourseCSV);
               line = reader.readLine();

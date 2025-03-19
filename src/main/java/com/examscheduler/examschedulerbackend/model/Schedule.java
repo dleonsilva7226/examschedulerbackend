@@ -11,13 +11,15 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //setters and getters below here
+    @Setter
     @Column(name="EXAM_DATE", length=40, nullable = true, unique=false)
     private String examDate;
 
+    @Setter
     @Column(name="EXAM_TIME", length=40, nullable = true, unique=false)
     private String examTime;
 
+    @Setter
     @Column(name="COURSE_TIME", length=40, nullable = true, unique=false)
     private String courseTime;
 
