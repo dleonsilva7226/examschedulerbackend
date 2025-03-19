@@ -14,41 +14,68 @@ public class CSVService {
 
     // repos
     private final CourseRepo myCourseRepo;
-    //private final ScheduleRepo myScheduleRepo;
+    private final ScheduleRepo myScheduleRepo;
+
+    //saves the course data to postgresql database
+    public void saveCourseData(String[] data) {
+        Course newCourse = new Course();
+        if (data != null && data.length >= 5) {
+            String courseSubject = data[0];
+            String courseNumber = data[1];
+            String courseSection = data[2];
+            String courseDays = data[3];
+            String courseTime = data[4];
+
+            if (courseSubject == null || courseSubject.isEmpty()
+                    || courseNumber == null || courseNumber.isEmpty()
+                    || courseSection == null || courseSection.isEmpty()
+                    || courseDays == null || courseDays.isEmpty()
+                    || courseTime == null || courseTime.isEmpty()) {
+                System.out.println("Invalid piece of data");
+            } else {
+                newCourse.setSubject(courseSubject);
+                newCourse.setNumber(courseNumber);
+                newCourse.setSection(courseSection);
+                newCourse.setDays(courseDays);
+                newCourse.setTime(courseTime);
+                myCourseRepo.save(newCourse);
+            }
+        } else {
+            System.out.println("Invalid input data array");
+        }
+    }
+
+    //saves the exam schedule data to postgresql database
+    public void saveScheduleData(String[] data) {
+        Schedule newSchedule = new Schedule();
+        if (data != null && data.length >= 5) {
+            String examDate = data[0];
+            String examTime = data[1];
+            String coursesWithExam = data[2];
+
+            if (examDate == null || examDate.isEmpty()
+                    || examTime == null || examTime.isEmpty()
+                    || coursesWithExam == null || coursesWithExam.isEmpty()
+            ) {
+                System.out.println("Invalid piece of data");
+            } else {
+                newSchedule.setCourseTime(examTime);
+                newSchedule.setExamDate(examDate);
+                newSchedule.setCourseTime(coursesWithExam);
+                myScheduleRepo.save(newSchedule);
+            }
+        } else {
+            System.out.println("Invalid input data array");
+        }
+    }
 
     // gets a csv line, parses through it and then saves it to database if a valid line
     // ex: one in which all of the parameters exist
     public void saveDataToDatabase(String[] data, boolean isCourseCSV) {
         if (isCourseCSV) {
-            Course newCourse = new Course();
-            if (data != null && data.length >= 5) {
-                String courseSubject = data[0];
-                String courseNumber = data[1];
-                String courseSection = data[2];
-                String courseDays = data[3];
-                String courseTime = data[4];
-
-                if (courseSubject == null || courseSubject.isEmpty()
-                || courseNumber == null || courseNumber.isEmpty()
-                || courseSection == null || courseSection.isEmpty()
-                || courseDays == null || courseDays.isEmpty()
-                || courseTime == null || courseTime.isEmpty()) {
-                    System.out.println("Invalid piece of data");
-                } else {
-                    newCourse.setSubject(courseSubject);
-                    newCourse.setNumber(courseNumber);
-                    newCourse.setSection(courseSection);
-                    newCourse.setDays(courseDays);
-                    newCourse.setTime(courseTime);
-                    myCourseRepo.save(newCourse);
-                }
-            } else {
-                System.out.println("Invalid input data array");
-            }
+            saveCourseData(data);
         } else {
-            //have same logic here as adding the course data to the database
-
-
+            saveScheduleData(data);
         }
 
     }
