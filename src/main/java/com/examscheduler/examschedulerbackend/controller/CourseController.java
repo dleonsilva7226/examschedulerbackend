@@ -3,11 +3,7 @@ package com.examscheduler.examschedulerbackend.controller;
 import com.examscheduler.examschedulerbackend.model.Course;
 import com.examscheduler.examschedulerbackend.service.CourseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 //imports data structures here
 import java.util.*;
@@ -27,6 +23,12 @@ public class CourseController {
     public void addCourses() {
         System.out.println("assignment");
         service.updateCoursesMonthly();
+    }
+
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Course> findCourse(@RequestParam Optional<String> courseSubjectCode, @RequestParam Optional<String> courseNumber, @RequestParam Optional<String> courseSectionCode) {
+        return service.findCourse(courseSubjectCode, courseNumber, courseSectionCode); //returns the courses associated with the search parameter
     }
 
 
